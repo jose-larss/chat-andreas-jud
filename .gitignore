@@ -1,0 +1,104 @@
+############################################
+# GLOBAL
+############################################
+
+# IDEs / Editores
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Sistema Operativo
+.DS_Store
+Thumbs.db
+
+
+############################################
+# FRONTEND (Next.js)
+############################################
+
+# Dependencias
+frontend/node_modules/
+frontend/.pnp
+frontend/.pnp.*
+frontend/.yarn/*
+!frontend/.yarn/patches
+!frontend/.yarn/plugins
+!frontend/.yarn/releases
+!frontend/.yarn/versions
+
+# Testing
+frontend/coverage/
+
+# Next.js
+frontend/.next/
+frontend/out/
+frontend/build/
+
+# Variables de entorno
+frontend/.env*
+!frontend/.env.example
+
+# Logs
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/.pnpm-debug.log*
+
+frontend/.env.local
+frontend/.env
+
+# Vercel
+frontend/.vercel/
+
+# TypeScript
+frontend/*.tsbuildinfo
+frontend/next-env.d.ts
+
+# Misc
+frontend/*.pem
+
+
+############################################
+# BACKEND (Python / Django)
+############################################
+
+# Python cache
+backend/__pycache__/
+backend/*.py[cod]
+backend/*$py.class
+backend/*.so
+
+backend/*.pyc
+
+# Entornos virtuales
+backend/.Python
+backend/env/
+backend/venv/
+backend/ENV/
+backend/env.bak/
+backend/venv.bak/
+
+# Variables de entorno
+backend/.env
+backend/.env.*
+
+# Testing / coverage
+backend/.pytest_cache/
+backend/.mypy_cache/
+backend/.ruff_cache/
+backend/.coverage
+backend/htmlcov/
+
+# Logs
+backend/*.log
+backend/pip-log.txt
+backend/pip-delete-this-directory.txt
+
+# Django
+backend/local_settings.py
+backend/db.sqlite3
+backend/db.sqlite3-journal
+backend/media/
+backend/static/
+backend/staticfiles/
