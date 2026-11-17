@@ -26,12 +26,12 @@ def message_delete(request, message_id):
 
     message.delete()
 
-    return Response(status=status.HTTP_204_NO_CONTENT)
+    return Response({"messageId": message_id}, status=status.HTTP_200_OK)
 
 
 
 @api_view(["POST"])
-#@permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 #@parser_classes([MultiPartParser, FormParser, JSONParser])
 def message_create(request):
     serializer = MessageCreateSerializer(data=request.data)
