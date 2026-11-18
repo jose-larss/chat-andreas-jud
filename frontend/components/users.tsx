@@ -77,28 +77,30 @@ export const Users = ({ users, currentUser, onLogout, onResetUser }: UsersProps)
             <div className="mt-auto flex w-full shrink-0 items-center justify-between gap-1 border-t border-zinc-700 pt-3">
 
                 {currentUser && (
-                    <div className="flex min-w-0 flex-1 items-center gap-2">
-                        <img
-                            src={currentUser.avatar}
-                            alt={currentUser.username}
-                            className="h-8 w-8 shrink-0 rounded-full object-cover"
-                        />
+                    <>
+                        <div className="flex min-w-0 flex-1 items-center gap-2">
+                            <img
+                                src={currentUser.avatar}
+                                alt={currentUser.username}
+                                className="h-8 w-8 shrink-0 rounded-full object-cover"
+                            />
 
-                        <span className="truncate text-sm text-zinc-200">
-                            {currentUser.username}
-                        </span>
-                    </div>
+                            <span className="truncate text-sm text-zinc-200">
+                                {currentUser.username}
+                            </span>
+                        </div>
+                
+                        <button
+                            onClick={() => setSettingsOpen(true)}
+                            type="button"
+                            aria-label="Settings"
+                            title="Settings"
+                            className="flex shrink-0 items-center justify-center rounded-md p-1.5 text-zinc-400 hover:bg-zinc-700 hover:text-white"
+                        >
+                            <Settings size={20} />
+                        </button>
+                    </>
                 )}
-
-                <button
-                    onClick={() => setSettingsOpen(true)}
-                    type="button"
-                    aria-label="Settings"
-                    title="Settings"
-                    className="flex shrink-0 items-center justify-center rounded-md p-1.5 text-zinc-400 hover:bg-zinc-700 hover:text-white"
-                >
-                    <Settings size={20} />
-                </button>
 
             </div>
 

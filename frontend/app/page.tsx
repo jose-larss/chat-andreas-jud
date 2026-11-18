@@ -3,6 +3,8 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
+import { createChatSocket } from "@/lib/socket";
+
 import { Message } from "@/components/message";
 import { MessageForm } from "@/components/message-form";
 import { Users } from "@/components/users";
@@ -48,12 +50,54 @@ const Page = () => {
         });
     }, [messages]);
 
+    // 3 escuchar los eventos del websockewt
+    useEffect(() => {
+        const socket = createChatSocket((event) => {
+
+            if (event.type === "message_created") {
+                setMessages(prev => [
+                    ...prev,
+                    event.data
+                ])
+            }
+
+            if (event.type === "message_deleted") {
+                //console.log("EVENTO DELETE RECIBIDO:", event.data)
+
+                setMessages(prev =>
+                    prev.filter(
+                        message => message.id !== event.data
+                    )
+                )
+            }
+
+            if (event.type === "user_status") {
+
+                setUsers(prev =>
+                    prev.map(user =>
+                        user.id === event.data.id
+                            ? {
+                                ...user,
+                                is_online: event.data.online,
+                            }
+                            : user
+                    )
+                )
+                //return
+            }
+        })
+
+        return () => {
+            socket.close()
+        }
+    }, [])
+
 
     // 3. Enviar mensaje
     const handleSend = async (text: string, image: File | null) => {
-       
+
         if (!user || (!text.trim() && !image)) return;
-    
+
         await addMessage(text.trim(), image);
 
         // Recuperar los mensajes actualizados
@@ -71,7 +115,7 @@ const Page = () => {
     };
 
     const handleResetUser = async (state: string, avatar: File | null) => {
-        
+
         try {
             const updatedUser = await updateProfile(state, avatar)
 
@@ -84,7 +128,7 @@ const Page = () => {
                     }
                     : prevUser
             );
-            
+
             // Actualizamos los mensajes del usuario actual
             setMessages((prevMessages) =>
                 prevMessages.map((message) =>
@@ -112,7 +156,7 @@ const Page = () => {
             );
 
         } catch (error) {
-             console.error("Error al eliminar el perfil:", error);
+            console.error("Error al eliminar el perfil:", error);
         }
     }
 
@@ -134,11 +178,11 @@ const Page = () => {
         <main className="flex h-screen justify-center bg-[#1e1f22] p-4 text-white">
             <div className="flex h-full w-full max-w-5xl overflow-hidden rounded-lg bg-[#292b2f]">
 
-                <Users 
-                    users={users} 
+                <Users
+                    users={users}
                     currentUser={user}
-                    onLogout={handleLogout}  
-                    onResetUser={handleResetUser}  
+                    onLogout={handleLogout}
+                    onResetUser={handleResetUser}
                 />
 
                 <section className="flex min-w-0 flex-1 flex-col">
